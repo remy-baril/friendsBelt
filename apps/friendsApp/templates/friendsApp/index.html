@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+    <style>
+        #float {
+            float: right;
+        }
+    </style>
+    <title>Friends</title>
+</head>
+
+<body>
+    <div class="container">
+        <br><br>
+        <p id='float'><a class="nav-link" href="/logout">Logout</a></p>
+        <h1 class="display-3">Hello {{currentUser.name}}!</h1>
+        </nav>
+        <br>
+        <h4>Here is a list of your friends:</h4>
+
+        {% if friendCount == 0 %}
+        <h4><strong><u>YOU HAVE NO FRIENDS</u></strong></h4>
+        {% endif %}
+        {% if friendCount %}
+        <h4><strong><u>NOW YOU HAVE FRIENDS</u></strong></h4>
+        {% endif %}
+        <br><br>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Alias</th>
+                    <th scope="col">Action</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            {% for person in myFriends %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{person.alias}}</th>
+                    <td><a href="/friends/user/{{person.id}}">View Profile</a></td>
+                    <td><a href="/friends/removeFriend/{{person.id}}">Remove Friend</a></td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+
+        <br>
+        <h4>Other Users not on my friend's list:</h4>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Alias</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            {% for person in otherUsers %}
+            <tbody>
+                <tr>
+                    <th scope="row"><a href="/friends/user/{{person.id}}">{{person.alias}}</a></th>
+                    <td><a href="/friends/addFriend/{{person.id}}">Add Friend</a></td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>
